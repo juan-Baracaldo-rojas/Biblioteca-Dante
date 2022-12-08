@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% csrf_token %}
+{% block Titulo %}Libreria Dante | Ver Libros {% endblock Titulo %}
+{% block navHeader %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        {% comment %} <a class="navbar-brand" href="{% url 'index' %}">Libreria Dante</a> {% endcomment %}
+        <a href="{% url 'index' %}">
+        <img src="static/Img/Logo.PNG" width="300"  height="80" >
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarMenu" style="margin-left: 2em ;font-size: 1.3em ;">
+              <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                  <a class="nav-link  icon-list-add" href="{% url 'createBook' %}" >Agregar Libro
+                    <span class="visually-hidden">(current)</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link  icon-seeBook" href="{% url 'readBooks' %}" >Ver Libros</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link icon-undo" href="{% url 'index' %}" >Atras</a>
+                </li>
+              </ul>
+              <form class="d-flex">
+                <input class="form-control me-sm-2 icon-search" type="text" placeholder="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+              </form>
+            
+        </div>
+    </div>
+</nav>
+{% endblock navHeader %}
+
+{% block contenido %}
+<div class="container">
+  <h1>Lista de Libros en Bodega</h1>
+  <table class="table">
+    <thead style="text-align: center ;">
+      <tr>
+        <th>Id</th>
+        <th>Titulo</th>
+        <th>Autor</th>
+        <th>Numero Paginas</th>
+        <th>Genero</th>
+        <th>Leido</th>
+        <th>Imagen</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody style="text-align: center ;">
+      {% for book in books %}
+        <tr>
+          <th>{{book.id}}</th>
+          <th>{{book.Titulo}}</th>
+          <th>{{book.Autor}}</th>
+          <th>{{book.Numero_Paginas}}</th>
+          <th>{{book.Genero}}</th>
+          {% if book.Leido == True %}
+          <th><p class="icon-report"></p></th>
+          {% else %}
+          <th><p class="icon-unread"></p></th>
+          {% endif %}
+          <th>
+          <img src="{{book.Imagen.url}}" height="100" width="100"/>
+             
+          </th>
+          <th>
+            <!--TODO terminar de asignar urls , Terminar video:2:03:54-->
+            <a name="" id="" class="btn btn-info icon-arrows-cw " href="{% url 'updateBook' book.id %}" role="button" >&nbsp&nbsp&nbsp&nbsp Editar &nbsp&nbsp&nbsp&nbsp </a>
+            |<br>
+            <a name="" id="" class="btn btn-danger icon-trash" href="{% url 'deleteBook' book.id %}" role="button">&nbsp&nbsp Eliminar &nbsp&nbsp</a>
+            |<br>
+            <a name="" id="" class="btn btn-warning icon-pencil" href="{% url 'readImportantPoints' book.id %}" role="button">Add Apunte</a>
+            <br>
+          </th>
+        </tr> 
+        {% endfor %}
+      </tbody>
+  </table>
+  
+</div>
+{% endblock contenido %}

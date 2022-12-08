@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% csrf_token %}
+{% block Titulo %}Libreria Dante | Apuntes {% endblock Titulo %}
+{% block navHeader %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+      <a href="{% url 'index' %}">
+      <img src="static/Img/Logo.PNG" width="300"  height="80" >
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+          <div class="collapse navbar-collapse" id="navbarMenu" style="margin-left: 2em ;font-size: 1.3em ;">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                  <a class="nav-link  icon-doc-add" href="{% url 'createImportantPoint' bookSelect.id %}" >Agregar Apunte
+                    <span class="visually-hidden">(current)</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link  icon-pencil" href="{% url 'readImportantPoints' bookSelect.id %}" >Ver Apuntes</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link icon-undo" href="{% url 'readBooks' %}" >Atras</a>
+                </li>
+              </ul>
+              <form class="d-flex">
+                <input class="form-control me-sm-2 icon-search" type="text" placeholder="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+              </form>
+            
+        </div>
+    </div>
+</nav>
+{% endblock navHeader %}
+
+{% block contenido %}
+<div class="container">
+  <h1>Ver Apuntes</h1>
+  <table class="table">
+    <thead style="text-align: center ;">
+      <tr>
+        <th>id</th>
+        <th>Titulo Libro</th>
+        <th>Apunte</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody style="text-align: center ;">
+      {% for importantPoint in importantPoints %}
+        {% if  bookSelect.Titulo !=  importantPoint.Titulo_Libro%}
+          <tr>
+            <th>{{importantPoint.id}}</th>
+            <th>{{importantPoint.Titulo_Libro}}</th>
+            <th>{{importantPoint.Apunte}}</th>
+            <th>
+              <a name="" id="" class="btn btn-info icon-arrows-cw " href="{% url 'updateImportantPoints' importantPoint.id %}" role="button">Editar</a>
+              |
+              <a name="" id="" class="btn btn-danger icon-trash" href="{% url 'deleteImportantPoints' importantPoint.id %}" role="button">Eliminar</a>
+              |
+            </th>
+          </tr> 
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+  
+</div>
+{% endblock contenido %}

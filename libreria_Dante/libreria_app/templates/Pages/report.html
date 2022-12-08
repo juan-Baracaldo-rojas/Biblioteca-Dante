@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Libreria Dante | About us{% endblock titulo %}
+
+{% block navHeader %}
+<!-- Nav tabs -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        {% comment %} <a class="navbar-brand" href="{% url 'index' %}">Libreria Dante</a> {% endcomment %}
+        <a href="{% url 'index' %}">
+        <img src="static/Img/Logo.PNG" width="300"  height="80" >
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarMenu" style="margin-left: 2em ;font-size: 1.3em ;">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                  <a class="nav-link  icon-seeBook" href="{% url 'readBooks' %}" >Libros
+                    <span class="visually-hidden">(current)</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link icon-bell" href="{% url 'report' %}" >Reporte</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link icon-wish-List" href="{% url 'readBooksWishList' %}" >Lista de Deseos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link icon-user" href="{% url 'about' %}" >About us</a>
+                </li>
+            </ul>
+          
+        </div>
+    </div>
+</nav>
+{% endblock navHeader %}
+{% block contenido %}{% endblock contenido %}
